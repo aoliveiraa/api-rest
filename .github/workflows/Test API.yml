@@ -16,22 +16,20 @@ jobs:
         dotnet-version: '3.1.408'
         
     - name: Dotnet Restore
-      run: dotnet restore
+      run: |
+        cd src/Supermercado.API/
+        dotnet restore
         
     - name: Build with dotnet
-      run: dotnet publish -o .\publish    
+      run: |
+        cd src/Supermercado.API/
+        dotnet publish -o .\publish    
         
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.1.5
-      
-    - name: Install Opentest 
-      run: |
-        npm install opentest -g
-    - name: Move Selenium
-      run: .\.github\scripts\drive.ps1 ${{github.workspace}}
     
     - name: Start Script
-      run: .\.github\scripts\startApi.ps1 ${{github.workspace}}
+      run: .\.github\scripts\Script.ps1 ${{github.workspace}}
 
     - name: Publish Test Report
       uses: mikepenz/action-junit-report@v2
